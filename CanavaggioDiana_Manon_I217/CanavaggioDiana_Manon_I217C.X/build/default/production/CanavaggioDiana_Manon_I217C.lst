@@ -1,0 +1,725 @@
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;************************************************************************
+                      00002 ;* Nom de fichier: Examen B2Q1 *
+                      00003 ;* Date: 14/01/2022 *
+                      00004 ;* *
+                      00005 ;* Auteur:  Manon Canavaggio-Diana
+                      00006 ;* Haute Ecole Louvain en Hainaut *
+                      00007 ;************************************************************************
+                      00008 ;* Fichiers nécessaires: aucun *
+                      00009 ;************************************************************************
+                      00010 ;* Notes: *
+                      00011 ;************************************************************************
+                      00012     list p=16F84, f=INHX8M              ; directive pour definir le processeur
+                      00013     list c=90, n=60                     ; directives pour le l
+                            isting
+                      00014     #include <p16F84a.inc>              ; incorporation variab
+                            les spécifiques
+                      00001         LIST
+                      00002 
+                      00003 ;=============================================================
+                            =============
+                      00004 ; Build date : Jan 06 2020
+                      00005 ;  MPASM PIC16F84A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2020 Microchip Technology, All rights re
+                            served
+                      00008 ;=============================================================
+                            =============
+                      00009 
+                      00209         LIST
+                      00015     errorlevel -302                     ; pas d'avertissements
+                             de bank
+                      00016     errorlevel -305                     ; pas d'avertissements
+                             de fdest
+                      00017 
+2007   3FF2           00018     __config _CP_OFF & _WDT_OFF & _PWRTE_ON & _HS_OSC   ; conf
+                            iguration du pic, cf. documentation
+                      00019 
+                      00020 ;*************************************************************
+                            ***********
+                      00021 ;* Définitions et Variables *
+                      00022     #DEFINE EXAMPLE b'000000000'        ; Define c'est comme d
+                            éclarer des constantes
+                      00023                                         ; Quand y'a un # (deva
+                            nt include et define) c'est une directive de 
+                      00024                                         ; précompilation càd q
+                            ue c'est pas le programme qui fait la commande, c'est 
+                      00025                                         ; une commande pour le
+                             compilateur
+                      00026 ;*************************************************************
+                            ***********
+                      00027     cblock 0x020
+                      00028 ; déclaration de variables
+Warning[210]: Extra ","
+  00000020            00029     d1,
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[210]: Extra ","
+  00000021            00030     d2,
+Warning[210]: Extra ","
+  00000022            00031     NB_BUTTON_CHECK,
+Warning[210]: Extra ","
+  00000023            00032     BUTTON_SELECTOR,
+Warning[210]: Extra ","
+  00000024            00033     RIGHT_OPERAND,
+Warning[210]: Extra ","
+  00000025            00034     LEFT_OPERAND,
+Warning[210]: Extra ","
+  00000026            00035     RESULT,
+                      00036     endc   
+                      00037 ;*************************************************************
+                            ***********
+                      00038 ;* Programme principal *
+                      00039 ;*************************************************************
+                            ***********
+                      00040 ;    cpu equates (memory map)
+                      00041     ;myPortB    equ    0x06             ; Definit l'addresse d
+                            u portB quelque soit la bank 
+                      00042                                         ; dans laquelle je me 
+                            trouve j'ai le droit d'utiliser PORTB
+                      00043     ;myPortA    equ    0x05             ; Definit l'addresse d
+                            u portA
+                      00044     ORG 0x000 ; vecteur reset
+                      00045     
+0000                  00046 START  
+                      00047 ;*************************************************************
+                            *********** 
+                      00048 ; START - PORTS INITIALISATION
+                      00049 ;*************************************************************
+                            ***********
+0000   1283           00050     BCF STATUS, RP0             ; on clear le bit 5 de STATUS,
+                             ce qui permet de selectionner bank0
+0001   0186           00051     CLRF PORTB                  ; initialise portB avec un cle
+                            ar des outputs
+0002   0185           00052     CLRF PORTA                  ; initialise portA avec un cle
+                            ar des outputs
+0003   1683           00053     BSF STATUS, RP0             ; On set le bit 5 de STATUS à 
+                            1, donc bank1 est selectionnée    
+                      00054 ;*************************************************************
+                            *********** 
+                      00055 ; START - I/O SETUP
+                      00056 ;*************************************************************
+                            ***********
+0004   3000           00057     MOVLW 0x00                  ; 0x00 = hexa / b'0' = binaire
+                             / 0 = decimal on doit préciser le système de numération
+0005   0086           00058     MOVWF TRISB                 ; on met 0x00 dans TRISB, ce q
+                            ui met PORTB en output
+0006   301F           00059     MOVLW b'00011111'           ; 1=input -> ici RA0 à RA4
+0007   0085           00060     MOVWF TRISA                 ; on met 1 dans trisA : input
+                      00061 ;*************************************************************
+                            *********** 
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00062 ; START - BANK SELECTION TO USE PORTA / PORTB
+                      00063 ;*************************************************************
+                            ***********    
+0008   1283           00064     BCF STATUS, RP0             ; On repasse dans la bank0 pou
+                            r pouvoir utiliser PORTA et B sans utiliser les trucs à la lig
+                            ne 40
+                      00065 ;*************************************************************
+                            *********** 
+                      00066 ; MAIN AREA - MAIN LOOP OF THE PROGRAM
+                      00067 ;*************************************************************
+                            *********** 
+0009                  00068 MAIN
+0009   2???           00069     CALL CHECK_BUTTONS          ; on appelle la routine qui ch
+                            eck tous les boutons un à un
+000A   2???           00070     CALL START_ACTIONS          ; on appelle la routine qui ch
+                            eck si une action doit être lancée
+000B   2???           00071     GOTO MAIN                   ; on boucle
+                      00072 ;*************************************************************
+                            *********** 
+                      00073 ; MAIN SUBROUTINES AGGREGATION
+                      00074 ;*************************************************************
+                            *********** 
+000C                  00075 CHECK_BUTTONS                   ; on appelle les routines qui 
+                            check si les boutons sont enfoncés, un par un, à chaque boucle
+                             du main
+000C   2???           00076     CALL CHECK_RA0              ; on appelle la routine qui ch
+                            eck le bouton mappé sur RA0
+000D   2???           00077     CALL CHECK_RA1              ; on appelle la routine qui ch
+                            eck le bouton mappé sur RA1
+000E   2???           00078     CALL CHECK_RA2              ; on appelle la routine qui ch
+                            eck le bouton mappé sur RA2
+000F   2???           00079     CALL CHECK_RA3              ; on appelle la routine qui ch
+                            eck le bouton mappé sur RA3
+0010   2???           00080     CALL CHECK_RA4              ; on appelle la routine qui ch
+                            eck le bouton mappé sur RA4
+0011   0008           00081     RETURN
+0012                  00082 START_ACTIONS                   ; on appelle les routines qui 
+                            check si les actions doivent être appellées, une par une
+0012   2???           00083     CALL INCR_LEFT_OPERAND      
+0013   2???           00084     CALL INCR_RIGHT_OPERAND     
+0014   2???           00085     CALL SUB_OPERATION          
+0015   2???           00086     CALL ADD_OPERATION
+0016   2???           00087     CALL RESET_OPERATION        
+0017   0008           00088     RETURN                      
+                      00089 ;*************************************************************
+                            *********** 
+                      00090 ; BUTTONS: TRIGGERS
+                      00091 ;*************************************************************
+                            ***********   
+0018                  00092 CHECK_RA0                       
+0018   1C05           00093     BTFSS PORTA,RA0         ; On teste RA0, s'il est =1 (donc 
+                            si le bouton est appuyé), on skip l'instruction suivante      
+                                
+0019   0008           00094     RETURN                  ; Si le bouton n'est pas appuyé, o
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                            n retourne là où la subroutine est call
+001A   1805           00095     BTFSC PORTA,RA0         ; ANTI-REBOND -> On teste RA0 de P
+                            ORTA, s'il est =0 (donc si le bouton n'est pas appuyé), on ski
+                            p l'instruction suivante                    
+001B   2???           00096     GOTO $-1                ; Si RA0=1 on revient une ligne av
+                            ant (donc tant qu'on reste appuyé sur le bouton)
+001C   2???           00097     CALL ACTION_RA0         ; Si RA0 = 0, donc une fois le bou
+                            ton relâché, on appelle la subroutine ACTION_RA0
+001D   2???           00098     GOTO MAIN               ; On retourne au MAIN
+001E                  00099 CHECK_RA1
+001E   1C85           00100     BTFSS PORTA,RA1         ; On teste RA1 de PORTA, s'il est 
+                            =1 (donc si le bouton est appuyé), on skip l'instruction suiva
+                            nte         
+001F   0008           00101     RETURN                  ; On retourne là où la sub est cal
+                            l
+0020   1885           00102     BTFSC PORTA,RA1         ; ANTI-REBOND -> On teste RA1 de P
+                            ORTA, s'il est =0 (donc si le bouton n'est pas appuyé), on ski
+                            p l'instruction suivante                    
+0021   2???           00103     GOTO $-1                ; Si RA1=1 on revient une ligne av
+                            ant (donc tant qu'on reste appuyé sur le bouton) 
+0022   2???           00104     CALL ACTION_RA1         ; Si RA1 = 0, donc une fois le bou
+                            ton relâché, on appelle la subroutine ACTION_RA1
+0023   2???           00105     GOTO MAIN               ; On retourne au MAIN
+0024                  00106 CHECK_RA2
+0024   1D05           00107     BTFSS PORTA, RA2        ; On teste RA2, s'il est =1 (donc 
+                            si le bouton est appuyé), on skip l'instruction suivante
+0025   0008           00108     RETURN                  ; Si le bouton n'est pas appuyé, o
+                            n retourne là où la subroutine est call
+0026   1905           00109     BTFSC PORTA,RA2         ; ANTI-REBOND -> On teste RA2 de P
+                            ORTA, s'il est =0 (donc si le bouton n'est pas appuyé), on ski
+                            p l'instruction suivante    
+0027   2???           00110     GOTO $-1                ; Si RA2=1 on revient une ligne av
+                            ant (donc tant qu'on reste appuyé sur le bouton)
+0028   2???           00111     CALL ACTION_RA2         ; Si RA2 = 0, donc une fois le bou
+                            ton relâché, on appelle la subroutine ACTION_RA2
+0029   2???           00112     GOTO MAIN               ; On retourne au MAIN
+002A                  00113 CHECK_RA3
+002A   1D85           00114     BTFSS PORTA, RA3        ; On teste RA3, s'il est =1 (donc 
+                            si le bouton est appuyé), on skip l'instruction suivante
+002B   0008           00115     RETURN                  ; Si le bouton n'est pas appuyé, o
+                            n retourne là où la subroutine est call
+002C   1985           00116     BTFSC PORTA,RA3         ; ANTI-REBOND -> On teste RA3 de P
+                            ORTA, s'il est =0 (donc si le bouton n'est pas appuyé), on ski
+                            p l'instruction suivante            
+002D   2???           00117     GOTO $-1                ; Si RA3=1 on revient une ligne av
+                            ant (donc tant qu'on reste appuyé sur le bouton)
+002E   2???           00118     CALL ACTION_RA3         ; Si RA3 = 0, donc une fois le bou
+                            ton relâché, on appelle la subroutine ACTION_RA3
+002F   2???           00119     GOTO MAIN               ; On retourne au MAIN
+0030                  00120 CHECK_RA4
+0030   1E05           00121     BTFSS PORTA, RA4        ; On teste RA4, s'il est =1 (donc 
+                            si le bouton est appuyé), on skip l'instruction suivante
+0031   0008           00122     RETURN                  ; Si le bouton n'est pas appuyé, o
+                            n retourne là où la subroutine est call
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0032   1A05           00123     BTFSC PORTA,RA4         ; ANTI-REBOND -> On teste RA4 de P
+                            ORTA, s'il est =0 (donc si le bouton n'est pas appuyé), on ski
+                            p l'instruction suivante            
+0033   2???           00124     GOTO $-1                ; Si RA3=1 on revient une ligne av
+                            ant (donc tant qu'on reste appuyé sur le bouton)
+0034   2???           00125     CALL ACTION_RA4         ; Si RA4 = 0, donc une fois le bou
+                            ton relâché, on appelle la subroutine ACTION_RA4
+0035   2???           00126     GOTO MAIN               ; On retourne au MAIN
+                      00127 ;*************************************************************
+                            *********** 
+                      00128 ; BUTTONS: ACTIONS
+                      00129 ;*************************************************************
+                            ***********  
+0036                  00130 ACTION_RA0                  ; routine appellée par l'appui du 
+                            bouton RA0
+0036   3001           00131     MOVLW b'00000001'       ; on met le 1er bit de W à 1
+0037   00A3           00132     MOVWF BUTTON_SELECTOR   ; on met W dans button_selector po
+                            ur mémoriser la valeur de l'action à exécuter
+0038   0008           00133     RETURN              
+0039                  00134 ACTION_RA1                  ; routine appellée par l'appui du 
+                            bouton RA1                
+0039   3002           00135     MOVLW b'00000010'       ; on met le 2eme bit de W à 1
+003A   00A3           00136     MOVWF BUTTON_SELECTOR   ; on met W dans button_selector po
+                            ur mémoriser la valeur de l'action à exécuter
+003B   0008           00137     RETURN                
+003C                  00138 ACTION_RA2                  ; routine appellée par l'appui du 
+                            bouton RA2
+003C   3004           00139     MOVLW b'00000100'       ; on met le 3eme bit de W à 1
+003D   00A3           00140     MOVWF BUTTON_SELECTOR   ; on met W dans button_selector po
+                            ur mémoriser la valeur de l'action à exécuter
+003E   0008           00141     RETURN               
+003F                  00142 ACTION_RA3                  ; routine appellée par l'appui du 
+                            bouton RA3
+003F   3008           00143     MOVLW b'00001000'       ; on met le 4eme bit de W à 1
+0040   00A3           00144     MOVWF BUTTON_SELECTOR   ; on met W dans button_selector po
+                            ur mémoriser la valeur de l'action à exécuter
+0041   0008           00145     RETURN               
+0042                  00146 ACTION_RA4                  ; routine appellée par l'appui du 
+                            bouton RA4
+0042   3010           00147     MOVLW b'00010000'       ; on met le 5eme bit de W à 1
+0043   00A3           00148     MOVWF BUTTON_SELECTOR   ; on met W dans button_selector po
+                            ur mémoriser la valeur de l'action à exécuter
+0044   0008           00149     RETURN
+                      00150 ;*************************************************************
+                            *********** 
+                      00151 ; CLEARS
+                      00152 ;*************************************************************
+                            ***********
+0045                  00153 CLEAR_BUTTON_SELECTOR      
+0045   01A3           00154     CLRF BUTTON_SELECTOR    ; on clear les bits de la variable
+                             BUTTON_SELECTOR
+0046   0008           00155     RETURN
+0047                  00156 CLEAR_LEFT_OPERAND         
+0047   01A5           00157     CLRF LEFT_OPERAND       ; on clear les bits de la variable
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                             LEFT_OPERAND   
+0048   0008           00158     RETURN
+0049                  00159 CLEAR_RIGHT_OPERAND                
+0049   01A4           00160     CLRF RIGHT_OPERAND      ; on clear les bits de la variable
+                             RIGHT_OPERAND   
+004A   0008           00161     RETURN
+004B                  00162 CLEAR_RESULT               
+004B   01A6           00163     CLRF RESULT             ; on clear les bits de la variable
+                             RESULT   
+004C   0008           00164     RETURN
+004D                  00165 CLEAR_PORTB                
+004D   0186           00166     CLRF PORTB              ; on clear les bits de PORTB (donc
+                             les leds)
+004E   0008           00167     RETURN
+                      00168 ;*************************************************************
+                            *********** 
+                      00169 ; ACTIONS TRIGGERS WITH OPERATION SELECTOR
+                      00170 ;*************************************************************
+                            *********** 
+                      00171     ; ces routines sont appellées à chaque tour dans le main
+                      00172     ; elles contiennent un check sur le button_selector
+                      00173     ; si on vient d'appuyer sur le bouton qui leur est associé
+                      00174     ; on call la routine qui lancera le mini programme souhait
+                            é
+004F                  00175 INCR_LEFT_OPERAND
+004F   1823           00176     BTFSC BUTTON_SELECTOR, 0            ; on check le bit en p
+                            osition 0 ( 0000 000x ). BTFSC prend en compte ce bit, si c'es
+                            t un 0 il skip l'instruction suivante (donc va au RETURN), sin
+                            on il exécute 
+0050   2???           00177     CALL INCR_LEFT_OPERAND_ROUTINE      ; on call le mini prog
+                            ramme associé
+0051   0008           00178     RETURN
+0052                  00179 INCR_RIGHT_OPERAND
+0052   18A3           00180     BTFSC BUTTON_SELECTOR, 1            ; on check le bit en p
+                            osition 1 ( 0000 00x0 ). si c'est un 0 il skip l'instruction s
+                            uivante (donc va au RETURN), sinon il exécute l'instruction su
+                            ivante.
+0053   2???           00181     CALL INCR_RIGHT_OPERAND_ROUTINE     ; on call le mini prog
+                            ramme associé
+0054   0008           00182     RETURN
+0055                  00183 SUB_OPERATION
+0055   1923           00184     BTFSC BUTTON_SELECTOR, 2            ; on check le bit en p
+                            osition 2 ( 0000 0x00 ). si c'est un 0 il skip l'instruction s
+                            uivante (donc va au RETURN), sinon il exécute l'instruction su
+                            ivante.
+0056   2???           00185     CALL SUB_OPERATION_ROUTINE          ; on call le mini prog
+                            ramme associé
+0057   0008           00186     RETURN
+0058                  00187 ADD_OPERATION
+0058   19A3           00188     BTFSC BUTTON_SELECTOR, 3            ; on check le bit en p
+                            osition 3 ( 0000 x000 ). si c'est un 0 il skip l'instruction s
+                            uivante (donc va au RETURN), sinon il exécute l'instruction su
+                            ivante.
+0059   2???           00189     CALL ADD_OPERATION_ROUTINE          ; on call le mini prog
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                            ramme associé
+005A   0008           00190     RETURN
+005B                  00191 RESET_OPERATION
+005B   1A23           00192     BTFSC BUTTON_SELECTOR, 4            ; on check le bit en p
+                            osition 4 ( 000x 0000 ). si c'est un 0 il skip l'instruction s
+                            uivante (donc va au RETURN), sinon il exécute l'instruction su
+                            ivante.
+005C   2???           00193     CALL RESET_ROUTINE                  ; on call le mini prog
+                            ramme associé
+005D   0008           00194     RETURN
+                      00195 ;*************************************************************
+                            *********** 
+                      00196 ; PORTB STATE REGISTER MODIFICATIONS AND OPERATIONS
+                      00197 ;*************************************************************
+                            *********** 
+005E                  00198 INCR_LEFT_OPERAND_ROUTINE           ; c'est la routine qui per
+                            met d'incrémenter la variable LEFT_OPERAND
+005E   2???           00199     CALL CLEAR_BUTTON_SELECTOR      ; on commence par call CLE
+                            AR_BUTTON_SELECTOR pour repasser en mode d'attente du programm
+                            e
+005F   0AA5           00200     INCF LEFT_OPERAND               ; on incrémente LEFT_OPERA
+                            ND
+0060   2???           00201     CALL SHOW_LEFT_OPERAND          ; on appelle la subroutine
+                             qui permet d'afficher la valeur en bits de l'opérande sur les
+                             leds
+0061   0008           00202     RETURN
+0062                  00203 INCR_RIGHT_OPERAND_ROUTINE          ; c'est la routine qui per
+                            met d'incrémenter la variable RIGHT_OPERAND
+0062   2???           00204     CALL CLEAR_BUTTON_SELECTOR      ; on commence par call CLE
+                            AR_BUTTON_SELECTOR pour repasser en mode d'attente du programm
+                            e
+0063   0AA4           00205     INCF RIGHT_OPERAND              ; on incrémente RIGHT_OPER
+                            AND
+0064   2???           00206     CALL SHOW_RIGHT_OPERAND         ; on appelle la subroutine
+                             qui permet d'afficher la valeur en bits de l'opérande sur les
+                             leds
+0065   0008           00207     RETURN
+0066                  00208 SUB_OPERATION_ROUTINE
+0066   2???           00209     CALL CLEAR_BUTTON_SELECTOR  ; on clear le button selector 
+                            pour éviter de repasser dans la routine
+0067   0824           00210     MOVFW RIGHT_OPERAND         ; on met RIGHT_OPERAND dans W
+0068   0225           00211     SUBWF LEFT_OPERAND, W       ; W = LEFT_OPERAND - RIGHT_OPE
+                            RAND
+0069   1D03           00212     BTFSS STATUS, Z             ; (Z = zero)RIGHT_OPERAND = LE
+                            FT_OPERAND. Si zero est set, on skip la ligne suivante
+006A   1C03           00213     BTFSS STATUS, C             ; (C = carry)RIGHT_OPERAND < L
+                            EFT_OPERAND. Si carry est set, on skip la ligne suivante
+006B   2???           00214     CALL IS_NEGATIVE
+006C   00A6           00215     MOVWF RESULT                ; On ajoute W à RESULT
+006D   2???           00216     CALL SHOW_RESULT            ; on appelle la subroutine qui
+                             permet d'afficher la valeur en bits du résultat sur les leds
+006E   0008           00217     RETURN
+                      00218     ; zero = set(1 btfsS pour set) et carry = set quand LEFT e
+                            t RIGHT sont EGAUX
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00219     ; zero = clear (0 btfsC pour clear) et carry = set quand L
+                            EFT est plus GRAND que RIGHT -> ici c'est le cas qu'on recherc
+                            he, pour ne pas descendre dans les négatifs
+                      00220     ; zero = clear et carry = clear -> quand LEFT est plus PET
+                            IT que RIGHT
+006F                  00221 ADD_OPERATION_ROUTINE           ; c'est la routine qui permet 
+                            de faire une addition
+006F   2???           00222     CALL CLEAR_BUTTON_SELECTOR  ; on commence par call CLEAR_B
+                            UTTON_SELECTOR pour repasser en mode d'attente du programme
+0070   0825           00223     MOVFW LEFT_OPERAND          ; on met LEFT_OPERAND dans le 
+                            W
+0071   0724           00224     ADDWF RIGHT_OPERAND, W      ; W = RIGHT_OPERAND + LEFT_OPE
+                            RAND
+0072   00A6           00225     MOVWF RESULT                ; on met la valeur de W dans l
+                            a variable RESULT
+0073   2???           00226     CALL SHOW_RESULT            ; on appelle la subroutine qui
+                             permet d'afficher la valeur en bits de l'opérande sur les led
+                            s
+0074   0008           00227     RETURN
+0075                  00228 RESET_ROUTINE                   ; c'est la subroutine qui perm
+                            et de remettre à 0 des variables de la calculatrice
+0075   2???           00229     CALL CLEAR_BUTTON_SELECTOR  ; on call la subroutine qui cl
+                            ear la variable BUTTON_SELECTOR
+0076   2???           00230     CALL CLEAR_PORTB            ; on call la subroutine qui cl
+                            ear le PORTB (donc éteint les leds)
+0077   2???           00231     CALL CLEAR_LEFT_OPERAND     ; on call la subroutine qui cl
+                            ear la variable LEFT_OPERAND
+0078   2???           00232     CALL CLEAR_RIGHT_OPERAND    ; on call la subroutine qui cl
+                            ear la variable RIGHT_OPERAND
+0079   2???           00233     CALL CLEAR_RESULT           ; on call la subroutine qui cl
+                            ear la variable RESULT
+007A   0008           00234     RETURN
+007B                  00235 IS_NEGATIVE
+007B   2???           00236     CALL LEDS_BLINKING
+007C   0103           00237     CLRW                        ; Puisque left_operand > que r
+                            ight_operand, on clear W
+007D   0008           00238     RETURN
+                      00239 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+007E                  00240 LEDS_BLINKING
+007E   2???           00241     CALL CLEAR_BUTTON_SELECTOR
+007F   30FF           00242     MOVLW b'11111111'   
+0080   0086           00243     MOVWF PORTB
+0081   2???           00244     CALL DELAY_WITH_CHECK_BUTTON
+0082   3000           00245     MOVLW b'00000000'   
+0083   0086           00246     MOVWF PORTB 
+0084   2???           00247     CALL DELAY_WITH_CHECK_BUTTON
+0085   2???           00248     GOTO LEDS_BLINKING
+                      00249 ;*************************************************************
+                            *********** 
+                      00250 ; SHOW
+                      00251 ;*************************************************************
+                            ***********
+0086                  00252 SHOW_LEFT_OPERAND           ; subroutine permettant d'afficher
+                             les valeurs des variables avec les leds
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0086   2???           00253     CALL CLEAR_PORTB        ; on clear d'abord les leds pour é
+                            viter les résidus
+0087   0825           00254     MOVFW LEFT_OPERAND      ; on met la variable LEFT_OPERAND 
+                            dans le W
+0088   0086           00255     MOVWF PORTB             ; on met ce qu'il y a dans le W da
+                            ns le F, donc dans PORTB, qui affiche les bits contenus dans l
+                            e F via les leds
+0089   0008           00256     RETURN
+008A                  00257 SHOW_RIGHT_OPERAND
+008A   2???           00258     CALL CLEAR_PORTB        ; on clear d'abord les leds pour é
+                            viter les résidus
+008B   0824           00259     MOVFW RIGHT_OPERAND     ; on met la variable RIGHT_OPERAND
+                             dans le W
+008C   0086           00260     MOVWF PORTB             ; on met ce qu'il y a dans le W da
+                            ns le F, donc dans PORTB, qui affiche les bits contenus dans l
+                            e F via les leds
+008D   0008           00261     RETURN
+008E                  00262 SHOW_RESULT
+008E   2???           00263     CALL CLEAR_PORTB        ; on clear d'abord les leds pour é
+                            viter les résidus
+008F   0826           00264     MOVFW RESULT            ; on met la variable RESULT dans l
+                            e W
+0090   0086           00265     MOVWF PORTB             ; on met ce qu'il y a dans le W da
+                            ns le F, donc dans PORTB, qui affiche les bits contenus dans l
+                            e F via les leds
+0091   0008           00266     RETURN
+                      00267 
+                      00268 ;*************************************************************
+                            *********** 
+                      00269 ; DELAYS
+                      00270 ;*************************************************************
+                            *********** 
+0092                  00271 DELAY_WITH_CHECK_BUTTON
+0092   3020           00272     MOVLW 0x20
+0093   00A2           00273     MOVWF NB_BUTTON_CHECK
+0094                  00274 DELAY_WITH_CHECK_BUTTON_0                   
+0094   0BA2           00275     DECFSZ NB_BUTTON_CHECK,f
+0095   2???           00276     GOTO DELAY_WITH_CHECK_BUTTON_CHECK
+0096   0008           00277     RETURN
+0097                  00278 DELAY_WITH_CHECK_BUTTON_CHECK
+0097   2???           00279     CALL DELAY
+0098   2???           00280     CALL CHECK_BUTTONS
+0099   2???           00281     GOTO DELAY_WITH_CHECK_BUTTON_0
+009A                  00282 DELAY
+009A   30E7           00283     MOVLW       0xE7
+009B   00A0           00284     MOVWF       d1
+009C   3004           00285     MOVLW       0x04
+009D   00A1           00286     MOVWF       d2
+009E                  00287 DELAY_0
+009E   0BA0           00288     DECFSZ      d1, f
+009F   2???           00289     GOTO        $+2
+00A0   0BA1           00290     DECFSZ      d2, f
+00A1   2???           00291     GOTO        DELAY_0
+00A2   2???           00292     GOTO        $+1
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00A3   0008           00293     RETURN
+Warning[205]: Found directive in column 1. (END)
+3FF2                  00294 END
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ACTION_RA0                        00000036
+ACTION_RA1                        00000039
+ACTION_RA2                        0000003C
+ACTION_RA3                        0000003F
+ACTION_RA4                        00000042
+ADD_OPERATION                     00000058
+ADD_OPERATION_ROUTINE             0000006F
+BUTTON_SELECTOR                   00000023
+C                                 00000000
+CHECK_BUTTONS                     0000000C
+CHECK_RA0                         00000018
+CHECK_RA1                         0000001E
+CHECK_RA2                         00000024
+CHECK_RA3                         0000002A
+CHECK_RA4                         00000030
+CLEAR_BUTTON_SELECTOR             00000045
+CLEAR_LEFT_OPERAND                00000047
+CLEAR_PORTB                       0000004D
+CLEAR_RESULT                      0000004B
+CLEAR_RIGHT_OPERAND               00000049
+DC                                00000001
+DELAY                             0000009A
+DELAY_0                           0000009E
+DELAY_WITH_CHECK_BUTTON           00000092
+DELAY_WITH_CHECK_BUTTON_0         00000094
+DELAY_WITH_CHECK_BUTTON_CHECK     00000097
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+EXAMPLE                           b'000000000'
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+INCR_LEFT_OPERAND                 0000004F
+INCR_LEFT_OPERAND_ROUTINE         0000005E
+INCR_RIGHT_OPERAND                00000052
+INCR_RIGHT_OPERAND_ROUTINE        00000062
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+IS_NEGATIVE                       0000007B
+LEDS_BLINKING                     0000007E
+LEFT_OPERAND                      00000025
+MAIN                              00000009
+NB_BUTTON_CHECK                   00000022
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RESET_OPERATION                   0000005B
+RESET_ROUTINE                     00000075
+RESULT                            00000026
+RIGHT_OPERAND                     00000024
+RP0                               00000005
+RP1                               00000006
+SHOW_LEFT_OPERAND                 00000086
+SHOW_RESULT                       0000008E
+SHOW_RIGHT_OPERAND                0000008A
+START                             00000000
+START_ACTIONS                     00000012
+STATUS                            00000003
+SUB_OPERATION                     00000055
+SUB_OPERATION_ROUTINE             00000066
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+MPASM 5.87   CANAVAGGIODIANA_MANON_I217C.ASM   1-14-2022  15:06:01         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_.org_0_001B                      0000001B
+_.org_0_0021                      00000021
+_.org_0_0027                      00000027
+_.org_0_002D                      0000002D
+_.org_0_0033                      00000033
+_.org_0_009F                      0000009F
+_.org_0_00A2                      000000A2
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84A                          00000001
+d1                                00000020
+d2                                00000021
+
+Errors   :     0
+Warnings :     8 reported,     0 suppressed
+Messages :     0 reported,     4 suppressed
+
+

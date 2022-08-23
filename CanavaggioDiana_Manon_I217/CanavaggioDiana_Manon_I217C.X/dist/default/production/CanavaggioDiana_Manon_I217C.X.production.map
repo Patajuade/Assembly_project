@@ -1,0 +1,124 @@
+MPLINK 5.09, LINKER
+Linker Map File - Created Fri Jan 14 15:06:02 2022
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000148
+                   .cinit    romdata   0x0000a4    program   0x000004
+.config_2007_BUILD/DEFAULT/PRODUCTION/CANAVAG       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x0000a5      
+                            0x002007    0x002007      
+            167 out of 1094 program addresses used, program memory utilization is 15%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               ACTION_RA0   0x000036    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+               ACTION_RA1   0x000039    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+               ACTION_RA2   0x00003c    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+               ACTION_RA3   0x00003f    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+               ACTION_RA4   0x000042    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            ADD_OPERATION   0x000058    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+    ADD_OPERATION_ROUTINE   0x00006f    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            CHECK_BUTTONS   0x00000c    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA0   0x000018    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA1   0x00001e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA2   0x000024    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA3   0x00002a    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA4   0x000030    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+    CLEAR_BUTTON_SELECTOR   0x000045    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+       CLEAR_LEFT_OPERAND   0x000047    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+              CLEAR_PORTB   0x00004d    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             CLEAR_RESULT   0x00004b    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+      CLEAR_RIGHT_OPERAND   0x000049    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                    DELAY   0x00009a    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                  DELAY_0   0x00009e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+  DELAY_WITH_CHECK_BUTTON   0x000092    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+DELAY_WITH_CHECK_BUTTON_0   0x000094    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+DELAY_WITH_CHECK_BUTTON_CHECK   0x000097    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+        INCR_LEFT_OPERAND   0x00004f    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+INCR_LEFT_OPERAND_ROUTINE   0x00005e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+       INCR_RIGHT_OPERAND   0x000052    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+INCR_RIGHT_OPERAND_ROUTINE   0x000062    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+              IS_NEGATIVE   0x00007b    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            LEDS_BLINKING   0x00007e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                     MAIN   0x000009    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+          RESET_OPERATION   0x00005b    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            RESET_ROUTINE   0x000075    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+        SHOW_LEFT_OPERAND   0x000086    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+              SHOW_RESULT   0x00008e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+       SHOW_RIGHT_OPERAND   0x00008a    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                    START   0x000000    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            START_ACTIONS   0x000012    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            SUB_OPERATION   0x000055    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+    SUB_OPERATION_ROUTINE   0x000066    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_001B   0x00001b    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_0021   0x000021    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_0027   0x000027    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_002D   0x00002d    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_0033   0x000033    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_009F   0x00009f    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_00A2   0x0000a2    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    START   0x000000    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                     MAIN   0x000009    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            CHECK_BUTTONS   0x00000c    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            START_ACTIONS   0x000012    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA0   0x000018    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_001B   0x00001b    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA1   0x00001e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_0021   0x000021    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA2   0x000024    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_0027   0x000027    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA3   0x00002a    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_002D   0x00002d    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                CHECK_RA4   0x000030    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_0033   0x000033    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+               ACTION_RA0   0x000036    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+               ACTION_RA1   0x000039    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+               ACTION_RA2   0x00003c    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+               ACTION_RA3   0x00003f    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+               ACTION_RA4   0x000042    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+    CLEAR_BUTTON_SELECTOR   0x000045    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+       CLEAR_LEFT_OPERAND   0x000047    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+      CLEAR_RIGHT_OPERAND   0x000049    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             CLEAR_RESULT   0x00004b    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+              CLEAR_PORTB   0x00004d    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+        INCR_LEFT_OPERAND   0x00004f    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+       INCR_RIGHT_OPERAND   0x000052    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            SUB_OPERATION   0x000055    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            ADD_OPERATION   0x000058    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+          RESET_OPERATION   0x00005b    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+INCR_LEFT_OPERAND_ROUTINE   0x00005e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+INCR_RIGHT_OPERAND_ROUTINE   0x000062    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+    SUB_OPERATION_ROUTINE   0x000066    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+    ADD_OPERATION_ROUTINE   0x00006f    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            RESET_ROUTINE   0x000075    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+              IS_NEGATIVE   0x00007b    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+            LEDS_BLINKING   0x00007e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+        SHOW_LEFT_OPERAND   0x000086    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+       SHOW_RIGHT_OPERAND   0x00008a    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+              SHOW_RESULT   0x00008e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+  DELAY_WITH_CHECK_BUTTON   0x000092    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+DELAY_WITH_CHECK_BUTTON_0   0x000094    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+DELAY_WITH_CHECK_BUTTON_CHECK   0x000097    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                    DELAY   0x00009a    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+                  DELAY_0   0x00009e    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_009F   0x00009f    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+             _.org_0_00A2   0x0000a2    program     static C:\Users\MVP PatateChaude\MPLABXProjects\CanavaggioDiana_Manon_I217C.X\CanavaggioDiana_Manon_I217C.asm
+
+
