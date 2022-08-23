@@ -1,2 +1,2 @@
 # Assembly_project
-Assembly project, B2Q1
+Assembly project, 1st semester of 2nd year
